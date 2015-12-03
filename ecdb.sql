@@ -200,6 +200,7 @@ CREATE TABLE IF NOT EXISTS `data` (
   `url4` varchar(256) NOT NULL,
   `price` varchar(11) NOT NULL,
   `bin_location` varchar(64) NOT NULL,
+  `public` varchar(3) NOT NULL DEFAULT 'Yes',
   KEY `Id` (`id`),
   KEY `owner` (`owner`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
