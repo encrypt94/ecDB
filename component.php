@@ -306,7 +306,7 @@
 								<td>
 									<?php
 										if ($executesql['owner'] !== $owner) {
-										        echo '<a href="view.php?owner='.$executesql['owner'].'">'.$executesql['login'].'</a>';
+										        echo '<a href="/?owner='.$executesql['owner'].'">'.$executesql['login'].'</a>';
 										}
 										else {
 											if ($executesql['public'] == "Yes") {

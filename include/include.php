@@ -5,7 +5,14 @@ class ShowComponents {
 		require_once('login/auth.php');
 		include('mysql_connect.php');
 
-		$owner = $_SESSION['SESS_MEMBER_ID'];
+		if(isset($_GET['owner'])) {
+			$owner = strip_tags(mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $_GET["owner"]));
+		}
+		else {
+			$owner = $_SESSION['SESS_MEMBER_ID'];
+		}	
+
+		$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location FROM data WHERE owner = ".$owner;
 
 		if(isset($_GET['by'])) {
 
@@ -18,19 +25,24 @@ class ShowComponents {
 			else{
 				$order = 'asc';
 			}
+			if($owner !== $_SESSION['SESS_MEMBER_ID']) {
+				  $GetDataComponentsAll .= " AND public = 'Yes'";
+			}
+
 
 			if($by == 'price' or $by == 'pins' or $by == 'quantity') {
-				$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location FROM data WHERE owner = ".$owner." ORDER by ".$by." +0 ".$order."";
+                                  $GetDataComponentsAll .= " ORDER by ".$by." +0 ".$order;
 			}
 			elseif($by == 'name' or $by == 'category' or $by =='package' or $by =='smd') {
-				$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location FROM data WHERE owner = ".$owner." ORDER by ".$by." ".$order."";
+				  $GetDataComponentsAll .= " ORDER by ".$by." ".$order;
 			}
 			else {
-				$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location FROM data WHERE owner = ".$owner." ORDER by name ASC";
+				  
+				  $GetDataComponentsAll .= " ORDER by name ASC";
 			}
 		}
 		else {
-			$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location FROM data WHERE owner = ".$owner." ORDER by name ASC";
+                        $GetDataComponentsAll .= " ORDER by name ASC";
 		}
 
 		$sql_exec = mysqli_query($GLOBALS["___mysqli_ston"], $GetDataComponentsAll);
