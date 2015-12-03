@@ -521,7 +521,7 @@ class ShowComponents {
 			}
 			else {
 
-
+				$SearchQuery = "SELECT * FROM data AS d LEFT JOIN members AS m ON d.owner = m.member_id WHERE (name LIKE'%$find%' OR package LIKE'%$find%' OR manufacturer LIKE'%$find%' OR pins LIKE'%$find%' OR location LIKE'%$find%' OR comment LIKE'%$find%') AND (owner = $owner OR public = 'Yes')  ORDER BY (CASE WHEN owner = $owner THEN 1 ELSE 2 END) ";
 				if (isset($_GET['by'])){
 					$by			=	strip_tags(mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $_GET["by"]));
 					$order_q	=	strip_tags(mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $_GET["order"]));
@@ -537,26 +537,26 @@ class ShowComponents {
 
 					if($by == 'price' or $by == 'pins' or $by == 'quantity')
 					{
-						$SearchQuery = "SELECT * FROM data WHERE (name LIKE'%$find%' OR package LIKE'%$find%' OR manufacturer LIKE'%$find%' OR pins LIKE'%$find%' OR location LIKE'%$find%' OR comment LIKE'%$find%') AND owner = $owner ORDER by $by +0 $order";
+						 $SearchQuery .= " , BY $by +0 $order";
 					}
 					elseif($by == 'name' or $by == 'category' or $by =='package' or $by =='smd' or $by =='manufacturer') {
-						$SearchQuery = "SELECT * FROM data WHERE (name LIKE'%$find%' OR package LIKE'%$find%' OR manufacturer LIKE'%$find%' OR pins LIKE'%$find%' OR location LIKE'%$find%' OR comment LIKE'%$find%') AND owner = $owner ORDER by $by $order";
+						$SearchQuery .= " , by $by $order";
 					}
 					else
 					{
-						$SearchQuery = "SELECT * FROM data WHERE (name LIKE'%$find%' OR package LIKE'%$find%' OR manufacturer LIKE'%$find%' OR pins LIKE'%$find%' OR location LIKE'%$find%' OR comment LIKE'%$find%') AND owner = $owner ORDER by name ASC";
+						$SearchQuery .= " , by name ASC";
 					}
 				}
 				else
 				{
-					$SearchQuery = "SELECT * FROM data WHERE (name LIKE'%$find%' OR package LIKE'%$find%' OR manufacturer LIKE'%$find%' OR pins LIKE'%$find%' OR location LIKE'%$find%' OR comment LIKE'%$find%') AND owner = $owner ORDER by name ASC";
-				}
+					$SearchQuery .= ", name ASC";
+			}
 
 				$sql_exec = mysqli_query($GLOBALS["___mysqli_ston"], $SearchQuery);
 				$anymatches = mysqli_num_rows($sql_exec);
 				if ($anymatches == 0) {
 					echo '<div class="message red">';
-						echo "Sorry, but we can not find an entry to match your query.";
+						echo "Sorry, but we can not find an entry to match your query . $SearchQuery";
 					echo '</div>';
 				}
 
@@ -679,7 +679,10 @@ class ShowComponents {
 						echo $showDetails['comment'];
 						echo '</span></div></td>';
 					}
-					echo "</tr>";
+					echo "<td>";
+					echo "<a href=\"/?owner=".$showDetails['owner']."\">".$showDetails['login']."</a>";
+					echo "</td>";
+					echo "</tr>";					
 				}
 			}
 		}

@@ -166,6 +166,9 @@
 							<th>
 								Comment
 							</th>
+							<th>
+								Owner
+							</th>
 						</tr>
 					</thead>
 					<tbody>
