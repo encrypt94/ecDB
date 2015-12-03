@@ -6,13 +6,13 @@
 	$owner 	= 	$_SESSION['SESS_MEMBER_ID'];
 	$id 	= 	(int)$_GET['view'];
 
-	$GetDataComponent = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM data WHERE id = ".$id." AND owner = ".$owner."");
+	$GetDataComponent = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM data AS d LEFT JOIN members AS m ON d.owner = m.member_id WHERE id = ".$id);
 	$executesql = mysqli_fetch_assoc($GetDataComponent);
 
 	$GetPersonal = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT currency, measurement FROM members WHERE member_id = ".$owner."");
 	$personal = mysqli_fetch_assoc($GetPersonal);
 
-	if ($executesql['owner'] !== $owner) {
+	if ($executesql['owner'] !== $owner && $executesql['public'] !== 'Yes') {
 		header("Location: error.php?id=1");
 	}
 
@@ -302,12 +302,25 @@
 										}
 									?>
 								</td>
+								<td class="boldText"><?php if($executesql['owner'] !== $owner) { echo 'Owner'; } else { echo 'Public'; } ?></td>
 								<td>
+									<?php
+										if ($executesql['owner'] !== $owner) {
+										        echo '<a href="view.php?owner='.$executesql['owner'].'">'.$executesql['login'].'</a>';
+										}
+										else {
+											if ($executesql['public'] == "Yes") {
+										  	   echo '<span class="icon medium checkboxChecked"></span>';
+											}
+											else {
+											   echo '<span class="icon medium checkboxUnchecked"></span>';
+											}
+										}
+									?>
 								</td>
-								<td>
-								</td>
-							</tr>
-							<tr>
+
+								</tr>
+								<tr>
 								<td class="boldText">Width</td>
 								<td>
 									<?php
@@ -457,16 +470,21 @@
 						</tbody>
 					</table>
 				</div>
-
-				<form class="globalForms noPadding" method="post" action="">
-					<div class="buttons">
-						<div class="input">
-							<button class="button" name="edit" type="submit"><span class="icon medium pencil"></span> Edit Component</button>
-							<button class="button" name="based" type="submit"><span class="icon medium sqPlus"></span> New based on this</button>
-							<button class="button red" name="delete" type="submit"><span class="icon medium trash"></span> Delete component</button>
-						</div>
-					</div>
-				</form>
+				
+				<?php
+				
+					if($executesql['owner'] === $owner) {
+						echo '<form class="globalForms noPadding" method="post" action="">';
+						echo '<div class="buttons">';
+						echo '<div class="input">';
+						echo '<button class="button" name="edit" type="submit"><span class="icon medium pencil"></span> Edit Component</button>';
+						echo '<button class="button" name="based" type="submit"><span class="icon medium sqPlus"></span> New based on this</button>';
+						echo '<button class="button red" name="delete" type="submit"><span class="icon medium trash"></span> Delete component</button>';
+						echo '</div>';
+						echo '</div>';
+						echo '</form>';
+					}	
+				?>
 				<!--
 				<div class="componentLog">
 					<h1><span class="icon medium docLinesStright"></span> Component log <span class="text colorGray styleItalic fontSizeMedium">(last two actions)</h1>
