@@ -556,7 +556,7 @@ class ShowComponents {
 				$anymatches = mysqli_num_rows($sql_exec);
 				if ($anymatches == 0) {
 					echo '<div class="message red">';
-						echo "Sorry, but we can not find an entry to match your query . $SearchQuery";
+						echo "Sorry, but we can not find an entry to match your query .";
 					echo '</div>';
 				}
 
