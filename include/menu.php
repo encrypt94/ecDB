@@ -4,6 +4,7 @@
 		<li><a href="add.php" class="<?php if ($script_name == 'add.php'){echo 'selected';}?>"><span class="icon medium sqPlus"></span> Add component</a></li>
 		<li><a href="shoplist.php" class="<?php if ($script_name ==  'shoplist.php'){echo 'selected';}?>"><span class="icon medium shopCart"></span> Shopping list</a></li>
 		<li><a href="proj_list.php" class="<?php if ($script_name == 'proj_list.php'){echo 'selected';}?>"><span class="icon medium cube"></span> Projects</a></li>
+		<li><a href="users_list.php" class="<?php if ($script_name == 'users_list.php'){echo 'selected';}?>"><span class="icon medium user"></span> Users</a></li>
 		<li><a href="my.php" class="<?php if ($script_name == 'my.php'){echo 'selected';}?>"><span class="icon medium user"></span> My account</a></li>
 <?php
 		if($opt_blog_tab_show == 1)
