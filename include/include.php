@@ -1,4 +1,4 @@
-<?php
+i<?php
 class ShowComponents {
 	public function Index() {
 
@@ -14,6 +14,10 @@ class ShowComponents {
 
 		$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location FROM data WHERE owner = ".$owner;
 
+		if($owner !== $_SESSION['SESS_MEMBER_ID']) {
+		        $GetDataComponentsAll .= " AND public = 'Yes'";
+		}
+
 		if(isset($_GET['by'])) {
 
 			$by			=	strip_tags(mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $_GET["by"]));
@@ -25,10 +29,6 @@ class ShowComponents {
 			else{
 				$order = 'asc';
 			}
-			if($owner !== $_SESSION['SESS_MEMBER_ID']) {
-				  $GetDataComponentsAll .= " AND public = 'Yes'";
-			}
-
 
 			if($by == 'price' or $by == 'pins' or $by == 'quantity') {
                                   $GetDataComponentsAll .= " ORDER by ".$by." +0 ".$order;
