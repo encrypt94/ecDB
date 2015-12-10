@@ -1,4 +1,4 @@
-i<?php
+<?php
 class ShowComponents {
 	public function Index() {
 

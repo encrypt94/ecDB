@@ -7,11 +7,11 @@
 	$id 	= 	(int)$_GET['based'];
 
 	// Get data from the old component to inherit.
-	$GetDataComponent = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM data WHERE id = ".$id." AND owner = ".$owner."");
+	$GetDataComponent = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM data WHERE id = ".$id." AND ( owner = ".$owner." OR public = 'Yes')");
 	$executesql = mysqli_fetch_assoc($GetDataComponent);
 
 	// If the owner of component !== $owner. Show error.
-	if ($executesql['owner'] !== $owner)
+	if ($executesql['owner'] !== $owner && $executesql['public'] == 'No')
 	{
 		header("Location: error.php?id=2");
 	}
