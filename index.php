@@ -165,6 +165,9 @@
 							<th>
 								Comment
 							</th>
+							<th>
+								Public
+							</th>							
 						</tr>
 					</thead>
 					<tbody>

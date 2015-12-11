@@ -12,7 +12,7 @@ class ShowComponents {
 			$owner = $_SESSION['SESS_MEMBER_ID'];
 		}	
 
-		$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location FROM data WHERE owner = ".$owner;
+		$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location, public FROM data WHERE owner = ".$owner;
 
 		if($owner !== $_SESSION['SESS_MEMBER_ID']) {
 		        $GetDataComponentsAll .= " AND public = 'Yes'";
@@ -168,6 +168,16 @@ class ShowComponents {
 					echo nl2br($showDetails['comment']);
 					echo '</span></div></td>';
 				}
+                        echo "<td>";
+                               $public = $showDetails['public'];
+                               if ($public == "No"){
+                                       echo '<span class="icon medium checkboxUnchecked"></span>';
+                               }
+                               else{
+                                       echo '<span class="icon medium checkboxChecked"></span>';
+                               }
+                        echo "</td>";
+
 			echo "</tr>";
 		}
 	}
