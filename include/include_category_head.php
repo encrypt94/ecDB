@@ -7,7 +7,10 @@ class NameHead {
 		include('include/mysql_connect.php');
 		$owner = $_SESSION['SESS_MEMBER_ID'];
 
-		$headcat = $_GET['cat'];
+		if(isset($_GET['cat']))
+		{
+ 		   $headcat = intval($_GET['cat']);
+		}
 
 		if(isset($_GET['subcat']))
 		{
