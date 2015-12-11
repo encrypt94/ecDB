@@ -21,7 +21,7 @@ class NameHead {
 		$CategoryName = "SELECT id, name FROM category ORDER by name ASC";
 		$sql_exec_catname = mysqli_query($GLOBALS["___mysqli_ston"], $CategoryName);
 
-		echo '<li>';
+ 		echo '<li>';
 		echo '<a href="."';
 		if(empty($_GET['cat']) && empty($_GET['subcat'])) // && empty($headcat))
 		{
@@ -41,6 +41,9 @@ class NameHead {
 			echo '<li>';
 			echo '<a href="category.php?cat=';
 			echo $ShowDetailsCatname['id'];
+			if(isset($_GET['owner'])){
+			   echo "&owner=".htmlentities($_GET['owner']);
+ 			}
 			echo '" ';
 
 			// Makes the head category "selected" when that category is viewed.

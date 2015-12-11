@@ -30,6 +30,9 @@ class NameSub {
 			echo '<li>';
 			echo '<a href="category.php?subcat=';
 			echo $ShowDetailsSubCatname['id'];
+			if(isset($_GET['owner'])){
+			   echo "&owner=".htmlentities($_GET['owner']);
+ 			}
 			echo '" ';
 
 			if(isset($_GET['subcat']))

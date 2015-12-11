@@ -36,7 +36,11 @@
 						?>
 					</ul>
 				</div>
-
+				<?php
+				if(isset($_GET['owner'])) {
+				   $parts_owner = htmlentities($_GET['owner']);
+				}
+				?>
 				<table class="globalTables" cellpadding="0" cellspacing="0">
 					<thead>
 						<tr>
@@ -56,6 +60,9 @@
 								else {
 									echo 'desc';
 								}
+								if(isset($parts_owner)){
+								    echo "&owner=$parts_owner";
+								}
 								?>">Name</a>
 							</th>
 							<th>
@@ -71,6 +78,9 @@
 								}
 								else {
 									echo 'asc';
+								}
+								if(isset($parts_owner)){
+								    echo "&owner=$parts_owner";
 								}
 								?>">Category</a>
 							</th>
@@ -88,6 +98,9 @@
 								else {
 									echo 'asc';
 								}
+								if(isset($parts_owner)){
+								    echo "&owner=$parts_owner";
+								}
 								?>">Package</a>
 							</th>
 							<th>
@@ -103,6 +116,9 @@
 								}
 								else {
 									echo 'asc';
+								}
+								if(isset($parts_owner)){
+								    echo "&owner=$parts_owner";
 								}
 								?>">Pins</a>
 							</th>
@@ -125,6 +141,9 @@
 								else {
 									echo 'asc';
 								}
+								if(isset($parts_owner)){
+								    echo "&owner=$parts_owner";
+								}
 								?>">SMD</a>
 							</th>
 							<th>
@@ -141,6 +160,9 @@
 								else {
 									echo 'asc';
 								}
+								if(isset($parts_owner)){
+								    echo "&owner=$parts_owner";
+								}
 								?>">Price</a>
 							</th>
 							<th>
@@ -156,6 +178,9 @@
 								}
 								else {
 									echo 'asc';
+								}
+								if(isset($parts_owner)){
+								    echo "&owner=$parts_owner";
 								}
 								?>">Quantity</a>
 							</th>
