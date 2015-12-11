@@ -240,7 +240,11 @@ class ShowComponents {
 
 				echo '<td class="edit"><a href="edit_component.php?edit=';
 				echo $showDetails['id'];
-				echo '"><span class="icon medium pencil"></span></a></td>';
+				echo '">';
+                                if ( $owner === $_SESSION['SESS_MEMBER_ID']) {
+                                   echo '<span class="icon medium pencil"></span></a></td>';
+                                }
+
 
 				echo '<td><a href="component.php?view=';
 				echo $showDetails['id'];
@@ -408,7 +412,11 @@ class ShowComponents {
 
 				echo '<td class="edit"><a href="edit_component.php?edit=';
 				echo $showDetails['id'];
-				echo '"><img src="img/pencil.png" alt="Edit"/></a></td>';
+                                echo '">';
+                                if ( $owner === $_SESSION['SESS_MEMBER_ID']) {
+                                   echo '<span class="icon medium pencil"></span></a></td>';
+                                }
+
 
 				echo '<td><a href="component.php?view=';
 				echo $showDetails['id'];
@@ -592,7 +600,10 @@ class ShowComponents {
 
 					echo '<td class="edit"><a href="edit_component.php?edit=';
 					echo $showDetails['id'];
-					echo '"><img src="img/pencil.png" alt="Edit"/></a></td>';
+					echo '">';
+                                        if ( $owner === $_SESSION['SESS_MEMBER_ID']) {
+                                           echo '<span class="icon medium pencil"></span></a></td>';
+                                        }
 
 					echo '<td><a href="component.php?view=';
 					echo $showDetails['id'];
