@@ -22,7 +22,11 @@ class NameHead {
 		$sql_exec_catname = mysqli_query($GLOBALS["___mysqli_ston"], $CategoryName);
 
  		echo '<li>';
-		echo '<a href="."';
+		echo '<a href="/';
+		if(isset($_GET['owner'])) {
+			echo '?owner='.htmlentities($_GET['owner']);
+                }
+		echo '"';
 		if(empty($_GET['cat']) && empty($_GET['subcat'])) // && empty($headcat))
 		{
 			echo ' class="selected"';
@@ -31,7 +35,6 @@ class NameHead {
 		{
 			echo ' class="isComponents"';
 		}
-
 		echo '>';
 		echo "All";
 		echo '</a></li> ';
